@@ -42,14 +42,13 @@ delay(60000); //1분간 대기
 digitalWrite(LED1_R,LOW); digitalWrite(LED2_R, LOW); 
 digitalWrite(LED3_G,LOW); digitalWrite(LED4_G, LOW); //신호를 끈다
 
-delaytime = 0;
-while(delaytime <= 10){
+for( delaytime=0; delaytime <10; delaytime++){
 digitalWrite(LED1_Y,HIGH); digitalWrite(LED2_Y, HIGH); //노란 신호가 들어옴
 digitalWrite(LED3_Y,HIGH); digitalWrite(LED4_Y, HIGH); //노란 신호가 들어옴
-delay(1000);
-digitalWrite(LED1_Y,LOW); digitalWrite(LED2_Y, LOW); //노란 신호가 들어옴
+delay(500);
+digitalWrite(LED1_Y,LOW); digitalWrite(LED2_Y, LOW); 
 digitalWrite(LED3_Y,LOW); digitalWrite(LED4_Y, LOW);
-delaytime++; // 10초가 되기 전까지 1초간 점멸
+delay(500);
   }
   
 digitalWrite(LED1_G, HIGH); digitalWrite(LED2_G, HIGH); //상하 신호등이 초록색
@@ -58,14 +57,13 @@ delay(60000); //1분간 대기
 digitalWrite(LED1_G, LOW); digitalWrite(LED2_G, LOW); //신호를 끈다
 digitalWrite(LED3_R, LOW); digitalWrite(LED4_R, LOW);
 
-delaytime = 0;
-while(delaytime <= 10){
+for( delaytime=0; delaytime <10; delaytime++){
 digitalWrite(LED1_Y,HIGH); digitalWrite(LED2_Y, HIGH); //노란 신호가 들어옴
 digitalWrite(LED3_Y,HIGH); digitalWrite(LED4_Y, HIGH); //노란 신호가 들어옴
-delay(1000);
+delay(500);
 digitalWrite(LED1_Y,LOW); digitalWrite(LED2_Y, LOW); //노란 신호를 끔
 digitalWrite(LED3_Y,LOW); digitalWrite(LED4_Y, LOW);
-delaytime++; // 10초가 되기 전까지 1초간 점멸
+delay(500);
   }
 //다시 상하는 빨간색 좌우는 초록색으로 반복
 }
