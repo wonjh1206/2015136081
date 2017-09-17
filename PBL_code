@@ -69,6 +69,7 @@ while(millis() - previousMillis <= interval) {
     delay(30000);
     digitalWrite(LED1_R,LOW); digitalWrite(LED2_R, LOW);
     digitalWrite(LED1_G, HIGH); digitalWrite(LED2_G, HIGH);
+    previousMillis = millis() - 34000;
  }
 }
 digitalWrite(LED1_G, LOW); digitalWrite(LED2_G, LOW); //신호를 끈다
