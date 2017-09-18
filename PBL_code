@@ -1,4 +1,4 @@
-// 4거리 3색신호등,,Led가 12개....
+// 4거리 3색신호등,,Led가 12개.. 각 번호의 디지털 핀에 연걸
 #define LED1_R 12
 #define LED1_G 11
 #define LED1_Y 10 //상
@@ -12,8 +12,8 @@
 #define LED4_G 41
 #define LED4_Y 43 //우
 #define buttonA 2
-const long interval = 60000;
-volatile bool state = true;
+const long interval = 60000; //60초
+volatile bool state = true; //스위치가 눌렸는지를 판단하는 변수
 
 void setup() {
   
@@ -44,32 +44,32 @@ delay(60000); //1분간 대기
 digitalWrite(LED3_G,LOW); digitalWrite(LED4_G, LOW); //신호를 끈다
 for(int delaytime=0; delaytime <10; delaytime++){
 digitalWrite(LED3_Y,HIGH); digitalWrite(LED4_Y, HIGH); //노란 신호가 들어옴
-delay(500); 
+delay(500);  
 digitalWrite(LED3_Y,LOW); digitalWrite(LED4_Y, LOW);
-delay(500);
-  }
+delay(500); // 0.5+0.5 해서 1초간 깜빡인다
+  } 
   
 digitalWrite(LED1_R, LOW); digitalWrite(LED2_R, LOW);
 digitalWrite(LED1_G, HIGH); digitalWrite(LED2_G, HIGH); //상하 신호등이 초록색
 digitalWrite(LED3_R, HIGH); digitalWrite(LED4_R, HIGH); //좌우 신호등이 빨간색
-//delay(60000); //1분간 대기
 unsigned long previousMillis = millis();
-while(millis() - previousMillis <= interval) {
- if(state == false) {
-   delay(3000);
-    digitalWrite(LED1_G,LOW); digitalWrite(LED2_G, LOW);
-    for(int delaytime=0; delaytime <10; delaytime++){
+while(millis() - previousMillis <= interval) { //현재 시각과 이전 시각의 차이가 60초가 될 때까지 반복
+  //시간 지연 동안에 다른 동작을 해야하므로 delay함수는 사용 못함
+ if(state == false) { //스위치가 눌렸으면
+   delay(3000); //3초간 대기
+    digitalWrite(LED1_G,LOW); digitalWrite(LED2_G, LOW); // 초록불을 꺼준다
+    for(int delaytime=0; delaytime <10; delaytime++){ //10초간
     digitalWrite(LED1_Y,HIGH); digitalWrite(LED2_Y, HIGH); //노란 신호가 들어옴
     delay(500);
     digitalWrite(LED1_Y,LOW); digitalWrite(LED2_Y, LOW); //노란 신호를 끔
-    delay(500);
-    }
-    digitalWrite(LED1_R,HIGH); digitalWrite(LED2_R, HIGH);
-    state = true;
+    delay(500); //1초 간격으로 깜빡임
+    } 
+    digitalWrite(LED1_R,HIGH); digitalWrite(LED2_R, HIGH); //빨간 신호를 켠다
+    state = true; //동작이 끝났으니 변수를 원래 상태로 돌려줌
     delay(30000);
     digitalWrite(LED1_R,LOW); digitalWrite(LED2_R, LOW);
-    digitalWrite(LED1_G, HIGH); digitalWrite(LED2_G, HIGH);
-    previousMillis = millis() - 34000;
+    digitalWrite(LED1_G, HIGH); digitalWrite(LED2_G, HIGH); //다시 초록 신호를 켜준다
+    previousMillis = millis() - 34000; //빨간 신호를 켜서 딜레이 된 만큼 지연 시간을 늘려줌
  }
 }
 digitalWrite(LED1_G, LOW); digitalWrite(LED2_G, LOW); //신호를 끈다
@@ -83,10 +83,8 @@ delay(500);
 digitalWrite(LED3_R, LOW); digitalWrite(LED4_R, LOW);
 }
 
-void tTof(){
-  delayMicroseconds(2500);
-  if(digitalRead(buttonA) != LOW) return;
-  state = false;
+void tTof(){ //스위치가 눌렸을 때 실행되는 함수
+ if(digitalRead(LED1_G) == HIGH) state = false; //스위치가 눌리면 state의 값을 바꿔준다
 }
 
 //스위치를 누르면 인터럽트를 통해 상태를 바꿔주고 루프문에서 바뀐 상태를 가지고 조건문 실행
